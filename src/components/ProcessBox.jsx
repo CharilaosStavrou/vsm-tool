@@ -60,7 +60,7 @@ function ProcessBox({
           <span className="data-unit">s</span>
         </div>
       </div>
-      <div className="process-actions">
+      <div className="process-actions no-export">
         <button type="button" onClick={() => onMove(-1)} disabled={isFirst} title="Move left">
           ←
         </button>

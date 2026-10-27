@@ -8,7 +8,15 @@ import { FactoryIcon, PushArrow } from './MapIcons.jsx';
 
 // Horizontal flow, left to right:
 // supplier → raw material → process → WIP → process … → finished goods → customer
-function ValueStreamMap({ vsm, metrics, onProcessChange, onMoveProcess, onDeleteProcess, onInventoryChange }) {
+function ValueStreamMap({
+  vsm,
+  metrics,
+  canvasRef,
+  onProcessChange,
+  onMoveProcess,
+  onDeleteProcess,
+  onInventoryChange,
+}) {
   const { processes, settings } = vsm;
   const inventories = getOrderedInventories(vsm);
 
@@ -34,7 +42,7 @@ function ValueStreamMap({ vsm, metrics, onProcessChange, onMoveProcess, onDelete
 
   return (
     <section className="vsm-map" aria-label="Value stream map">
-      <div className="vsm-canvas">
+      <div className="vsm-canvas" ref={canvasRef}>
         <div className="vsm-flow">
           <FactoryIcon label="Supplier" />
           {processes.map((process, index) => (

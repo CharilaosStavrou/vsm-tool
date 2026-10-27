@@ -2,7 +2,7 @@ import { formatNumber } from '../lib/format.js';
 import { getEffectiveCycleTime } from '../lib/vsmCalculations.js';
 
 // Key lean metrics. Each card has a tooltip with the formula behind it.
-function MetricsPanel({ metrics }) {
+function MetricsPanel({ metrics, panelRef }) {
   const { taktTime, leadTimeDays, valueAddedTime, processCycleEfficiency, bottleneck } = metrics;
   const isBottleneckAboveTakt = bottleneck && getEffectiveCycleTime(bottleneck) > taktTime;
 
@@ -45,7 +45,7 @@ function MetricsPanel({ metrics }) {
   ];
 
   return (
-    <section className="metrics-panel" aria-label="Metrics">
+    <section className="metrics-panel" aria-label="Metrics" ref={panelRef}>
       {cards.map(({ label, value, unit, tooltip, isWarning }) => (
         <div key={label} className={`metric ${isWarning ? 'is-danger' : ''}`} title={tooltip}>
           <span className="metric-label">

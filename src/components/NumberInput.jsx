@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
 // Numeric input that only reports valid values to its parent.
+// It is a text field with a numeric keyboard rather than type="number":
+// that avoids browser spin buttons and renders correctly in the PNG export.
 // While the typed text is invalid it is shown in red and the last
 // valid value is kept; on blur the field reverts to that value.
-function NumberInput({ value, onChange, min = 0, max, step = 1, label, className = '' }) {
+function NumberInput({ value, onChange, min = 0, max, label, className = '' }) {
   const [draft, setDraft] = useState(String(value));
   const [prevValue, setPrevValue] = useState(value);
 
@@ -23,12 +25,10 @@ function NumberInput({ value, onChange, min = 0, max, step = 1, label, className
 
   return (
     <input
-      type="number"
+      type="text"
+      inputMode="decimal"
       className={`number-input ${error ? 'is-invalid' : ''} ${className}`}
       value={draft}
-      min={min}
-      max={max}
-      step={step}
       aria-label={label}
       aria-invalid={Boolean(error)}
       title={error || label}

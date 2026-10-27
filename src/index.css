@@ -83,18 +83,6 @@ button:disabled {
   outline-offset: -1px;
 }
 
-/* Hide the browser spin buttons: they take space in the small data boxes. */
-.number-input::-webkit-inner-spin-button,
-.number-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.number-input {
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-
 .number-input.is-invalid {
   border-color: var(--color-danger);
   color: var(--color-danger);
@@ -148,8 +136,16 @@ button:disabled {
 
 .toolbar {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 8px;
   margin-bottom: 16px;
+}
+
+.toolbar-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 /* ---------- Metrics panel ---------- */
