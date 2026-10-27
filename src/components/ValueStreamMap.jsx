@@ -1,15 +1,21 @@
 import { Fragment } from 'react';
 import { getOrderedInventories } from '../lib/vsmModel.js';
-import { getDaysOfInventory } from '../lib/vsmCalculations.js';
+import { getDaysOfInventory, getEffectiveCycleTime } from '../lib/vsmCalculations.js';
 import InventoryTriangle from './InventoryTriangle.jsx';
 import ProcessBox from './ProcessBox.jsx';
 import { FactoryIcon, PushArrow } from './MapIcons.jsx';
 
 // Horizontal flow, left to right:
 // supplier → raw material → process → WIP → process … → finished goods → customer
-function ValueStreamMap({ vsm, onProcessChange, onMoveProcess, onDeleteProcess, onInventoryChange }) {
+function ValueStreamMap({ vsm, metrics, onProcessChange, onMoveProcess, onDeleteProcess, onInventoryChange }) {
   const { processes, settings } = vsm;
   const inventories = getOrderedInventories(vsm);
+
+  function getStatus(process) {
+    if (process.id === metrics.bottleneck?.id) return 'bottleneck';
+    if (metrics.aboveTaktIds.includes(process.id)) return 'aboveTakt';
+    return null;
+  }
 
   // inventories[i] sits before processes[i]; the last one is finished goods.
   function renderInventory(inventory, withArrow) {
@@ -34,6 +40,8 @@ function ValueStreamMap({ vsm, onProcessChange, onMoveProcess, onDeleteProcess, 
             {renderInventory(inventories[index], index > 0)}
             <ProcessBox
               process={process}
+              effectiveCycleTime={getEffectiveCycleTime(process)}
+              status={getStatus(process)}
               isFirst={index === 0}
               isLast={index === processes.length - 1}
               canDelete={processes.length > 1}

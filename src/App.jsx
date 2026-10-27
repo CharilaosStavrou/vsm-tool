@@ -8,11 +8,14 @@ import {
   updateProcess,
   updateSettings,
 } from './lib/vsmActions.js';
+import { calculateMetrics } from './lib/vsmCalculations.js';
 import HeaderBar from './components/HeaderBar.jsx';
+import MetricsPanel from './components/MetricsPanel.jsx';
 import ValueStreamMap from './components/ValueStreamMap.jsx';
 
 function App() {
   const [vsm, setVsm] = useState(sampleVsm);
+  const metrics = calculateMetrics(vsm);
 
   return (
     <div className="app">
@@ -26,8 +29,10 @@ function App() {
             + Add process
           </button>
         </div>
+        <MetricsPanel metrics={metrics} />
         <ValueStreamMap
           vsm={vsm}
+          metrics={metrics}
           onProcessChange={(id, field, value) =>
             setVsm((current) => updateProcess(current, id, field, value))
           }

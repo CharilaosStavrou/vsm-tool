@@ -1,3 +1,4 @@
+import { formatNumber } from '../lib/format.js';
 import NumberInput from './NumberInput.jsx';
 
 const dataFields = [
@@ -8,10 +9,27 @@ const dataFields = [
   { field: 'shifts', label: 'Shifts', unit: '' },
 ];
 
+const statusLabels = {
+  bottleneck: 'Bottleneck',
+  aboveTakt: 'Above takt',
+};
+
 // Classic VSM process box: name on top, data box below.
-function ProcessBox({ process, isFirst, isLast, canDelete, onChange, onMove, onDelete }) {
+// status is 'bottleneck', 'aboveTakt' or null and sets the warning colour.
+function ProcessBox({
+  process,
+  effectiveCycleTime,
+  status,
+  isFirst,
+  isLast,
+  canDelete,
+  onChange,
+  onMove,
+  onDelete,
+}) {
   return (
-    <div className="process">
+    <div className={`process ${status ? `is-${status}` : ''}`}>
+      <span className="process-status">{statusLabels[status] ?? ''}</span>
       <div className="process-box">
         <input
           type="text"
@@ -36,6 +54,11 @@ function ProcessBox({ process, isFirst, isLast, canDelete, onChange, onMove, onD
             <span className="data-unit">{unit}</span>
           </label>
         ))}
+        <div className="data-row" title="Effective C/T = C/T ÷ (uptime / 100)">
+          <span className="data-label">Eff. C/T</span>
+          <span className="data-value">{formatNumber(effectiveCycleTime)}</span>
+          <span className="data-unit">s</span>
+        </div>
       </div>
       <div className="process-actions">
         <button type="button" onClick={() => onMove(-1)} disabled={isFirst} title="Move left">
