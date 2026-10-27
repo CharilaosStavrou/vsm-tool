@@ -1,7 +1,7 @@
 {
   "name": "vsm-tool",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -26,5 +26,15 @@
     "globals": "^16.0.0",
     "vite": "^6.3.5",
     "vitest": "^3.2.7"
+  },
+  "description": "Value Stream Mapping tool with automatic lean metrics",
+  "license": "MIT",
+  "author": "Charilaos Stavrou",
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CharilaosStavrou/vsm-tool.git"
   }
 }
