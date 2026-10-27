@@ -3,6 +3,7 @@ import { getOrderedInventories } from '../lib/vsmModel.js';
 import { getDaysOfInventory, getEffectiveCycleTime } from '../lib/vsmCalculations.js';
 import InventoryTriangle from './InventoryTriangle.jsx';
 import ProcessBox from './ProcessBox.jsx';
+import Timeline from './Timeline.jsx';
 import { FactoryIcon, PushArrow } from './MapIcons.jsx';
 
 // Horizontal flow, left to right:
@@ -33,26 +34,29 @@ function ValueStreamMap({ vsm, metrics, onProcessChange, onMoveProcess, onDelete
 
   return (
     <section className="vsm-map" aria-label="Value stream map">
-      <div className="vsm-flow">
-        <FactoryIcon label="Supplier" />
-        {processes.map((process, index) => (
-          <Fragment key={process.id}>
-            {renderInventory(inventories[index], index > 0)}
-            <ProcessBox
-              process={process}
-              effectiveCycleTime={getEffectiveCycleTime(process)}
-              status={getStatus(process)}
-              isFirst={index === 0}
-              isLast={index === processes.length - 1}
-              canDelete={processes.length > 1}
-              onChange={(field, value) => onProcessChange(process.id, field, value)}
-              onMove={(direction) => onMoveProcess(process.id, direction)}
-              onDelete={() => onDeleteProcess(process.id)}
-            />
-          </Fragment>
-        ))}
-        {renderInventory(inventories[inventories.length - 1], false)}
-        <FactoryIcon label="Customer" />
+      <div className="vsm-canvas">
+        <div className="vsm-flow">
+          <FactoryIcon label="Supplier" />
+          {processes.map((process, index) => (
+            <Fragment key={process.id}>
+              {renderInventory(inventories[index], index > 0)}
+              <ProcessBox
+                process={process}
+                effectiveCycleTime={getEffectiveCycleTime(process)}
+                status={getStatus(process)}
+                isFirst={index === 0}
+                isLast={index === processes.length - 1}
+                canDelete={processes.length > 1}
+                onChange={(field, value) => onProcessChange(process.id, field, value)}
+                onMove={(direction) => onMoveProcess(process.id, direction)}
+                onDelete={() => onDeleteProcess(process.id)}
+              />
+            </Fragment>
+          ))}
+          {renderInventory(inventories[inventories.length - 1], false)}
+          <FactoryIcon label="Customer" />
+        </div>
+        <Timeline vsm={vsm} metrics={metrics} />
       </div>
     </section>
   );

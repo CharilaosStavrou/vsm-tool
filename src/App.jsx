@@ -10,6 +10,7 @@ import {
 } from './lib/vsmActions.js';
 import { calculateMetrics } from './lib/vsmCalculations.js';
 import HeaderBar from './components/HeaderBar.jsx';
+import CycleTimeChart from './components/CycleTimeChart.jsx';
 import MetricsPanel from './components/MetricsPanel.jsx';
 import ValueStreamMap from './components/ValueStreamMap.jsx';
 
@@ -42,6 +43,7 @@ function App() {
             setVsm((current) => updateInventoryQuantity(current, inventory, quantity))
           }
         />
+        <CycleTimeChart processes={vsm.processes} metrics={metrics} />
       </main>
     </div>
   );
