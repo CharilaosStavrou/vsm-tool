@@ -1,5 +1,7 @@
 # VSM Tool
 
+**Live demo: [vsm-tool-five.vercel.app](https://vsm-tool-five.vercel.app)**
+
 A web app for building **Value Stream Maps** and automatically calculating the key lean metrics:
 takt time, production lead time, value-added time, process cycle efficiency and the bottleneck.
 
