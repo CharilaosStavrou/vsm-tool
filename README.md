@@ -5,7 +5,7 @@
 A web app for building **Value Stream Maps** and automatically calculating the key lean metrics:
 takt time, production lead time, value-added time, process cycle efficiency and the bottleneck.
 
-Built as a portfolio project during my MSc in Production Engineering and Management at KTH.
+Built as a portfolio project.
 
 ![VSM Tool: map editor, metrics panel, timeline and cycle time chart](docs/app-screenshot.png)
 
