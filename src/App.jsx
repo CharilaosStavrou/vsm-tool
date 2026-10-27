@@ -1,20 +1,44 @@
 import { useState } from 'react';
 import { sampleVsm } from './data/sampleVsm.js';
-import { getOrderedInventories } from './lib/vsmModel.js';
+import {
+  addProcess,
+  deleteProcess,
+  moveProcess,
+  updateInventoryQuantity,
+  updateProcess,
+  updateSettings,
+} from './lib/vsmActions.js';
+import HeaderBar from './components/HeaderBar.jsx';
+import ValueStreamMap from './components/ValueStreamMap.jsx';
 
-// Phase 1 placeholder: shows that the data model loads.
-// The map editor replaces this in Phase 2.
 function App() {
-  const [vsm] = useState(sampleVsm);
+  const [vsm, setVsm] = useState(sampleVsm);
 
   return (
-    <main className="app">
-      <h1>VSM Tool</h1>
-      <p>
-        {vsm.settings.productName}: {vsm.processes.length} processes,{' '}
-        {getOrderedInventories(vsm).length} inventories
-      </p>
-    </main>
+    <div className="app">
+      <HeaderBar
+        settings={vsm.settings}
+        onSettingChange={(field, value) => setVsm((current) => updateSettings(current, field, value))}
+      />
+      <main className="app-main">
+        <div className="toolbar">
+          <button type="button" className="button-primary" onClick={() => setVsm(addProcess)}>
+            + Add process
+          </button>
+        </div>
+        <ValueStreamMap
+          vsm={vsm}
+          onProcessChange={(id, field, value) =>
+            setVsm((current) => updateProcess(current, id, field, value))
+          }
+          onMoveProcess={(id, direction) => setVsm((current) => moveProcess(current, id, direction))}
+          onDeleteProcess={(id) => setVsm((current) => deleteProcess(current, id))}
+          onInventoryChange={(inventory, quantity) =>
+            setVsm((current) => updateInventoryQuantity(current, inventory, quantity))
+          }
+        />
+      </main>
+    </div>
   );
 }
 

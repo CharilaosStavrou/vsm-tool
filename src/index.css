@@ -28,3 +28,283 @@ body {
 .app {
   padding: 16px 24px;
 }
+
+button {
+  font: inherit;
+  padding: 4px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--color-line);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.button-primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+}
+
+.button-primary:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  filter: brightness(1.1);
+}
+
+.text-input,
+.number-input {
+  font: inherit;
+  padding: 3px 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.number-input {
+  width: 90px;
+  text-align: right;
+}
+
+.text-input:focus,
+.number-input:focus,
+.process-name:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -1px;
+}
+
+/* Hide the browser spin buttons: they take space in the small data boxes. */
+.number-input::-webkit-inner-spin-button,
+.number-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.number-input {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.number-input.is-invalid {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+/* ---------- Layout ---------- */
+
+.app {
+  min-height: 100vh;
+}
+
+.header-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 32px;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--color-line);
+}
+
+.app-name {
+  margin: 0;
+  font-size: 20px;
+  color: var(--color-accent);
+}
+
+.settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+.setting {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.setting-label {
+  font-weight: 600;
+}
+
+.setting-unit {
+  color: var(--color-muted);
+  font-size: 12px;
+}
+
+.app-main {
+  padding: 16px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+/* ---------- Value stream map ---------- */
+
+.vsm-map {
+  overflow-x: auto;
+  padding: 16px 0;
+}
+
+.vsm-flow {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  width: max-content;
+  margin: 0 auto;
+}
+
+.external {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding-top: 20px;
+}
+
+.factory-icon {
+  width: 60px;
+  fill: var(--color-bg);
+  stroke: var(--color-line);
+  stroke-width: 2;
+}
+
+.external-label {
+  font-weight: 600;
+}
+
+.flow-gap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 84px;
+}
+
+.inventory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.inventory-kind {
+  font-size: 11px;
+  color: var(--color-muted);
+}
+
+.inventory-icon {
+  width: 38px;
+  fill: var(--color-bg);
+  stroke: var(--color-line);
+  stroke-width: 2;
+}
+
+.inventory-icon text {
+  fill: var(--color-line);
+  stroke: none;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.inventory-quantity {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.inventory-days {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.push-arrow {
+  width: 72px;
+  fill: var(--color-bg);
+  stroke: var(--color-line);
+  stroke-width: 1.5;
+}
+
+.push-stripe {
+  fill: var(--color-line);
+  stroke: none;
+}
+
+/* ---------- Process box ---------- */
+
+.process {
+  display: flex;
+  flex-direction: column;
+  width: 136px;
+}
+
+.process-box {
+  border: 2px solid var(--color-line);
+  padding: 10px 6px;
+}
+
+.process-name {
+  width: 100%;
+  font: inherit;
+  font-weight: 700;
+  text-align: center;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+}
+
+.data-box {
+  border: 2px solid var(--color-line);
+  border-top: none;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.data-row {
+  display: grid;
+  grid-template-columns: 1fr 44px 20px;
+  align-items: center;
+  gap: 2px;
+}
+
+.data-label {
+  font-size: 11px;
+}
+
+.data-input {
+  width: 100%;
+  padding: 1px 3px;
+}
+
+.inventory-quantity .data-input {
+  width: 52px;
+}
+
+.data-unit {
+  font-size: 11px;
+  color: var(--color-muted);
+}
+
+.process-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.process-actions button {
+  padding: 2px 8px;
+  font-size: 12px;
+}
